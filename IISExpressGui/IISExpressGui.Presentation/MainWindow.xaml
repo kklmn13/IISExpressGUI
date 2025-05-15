@@ -4,7 +4,7 @@
         MinWidth="600" MinHeight="400"
         Title="{Binding Path=DisplayName}"
         Width="700" Height="500" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Icon="IISExpressStarter.bitbug_favicon--3-.ico">
     <Window.Resources>
         <ResourceDictionary Source="MainWindowResources.xaml" />
     </Window.Resources>
@@ -12,14 +12,13 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" KeyboardNavigation.TabNavigation="None">
             <Menu KeyboardNavigation.TabNavigation="Cycle">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_New WebSite" Command="{Binding Path=CreateWebSiteCommand}" />
-                    <MenuItem Header="_Clear Invalided WebSite" Command="{Binding Path=ClearInvalidedWebSiteCommand}"></MenuItem>
-                    <MenuItem Header="E_xit" Command="{Binding Path=CloseCommand}" />
+                <MenuItem Header="_操作" Click="MenuItem_Click">
+                    <MenuItem Header="_新建站点" Command="{Binding CreateWebSiteCommand}" />
+                    <MenuItem Header="_清除无效站点" Command="{Binding ClearInvalidedWebSiteCommand}"/>
+                    <MenuItem Header="_退出" Command="{Binding CloseCommand}" />
                 </MenuItem>
-                <!--<MenuItem Header="_Edit" />-->
+                <MenuItem Header="_一键切换站点状态" Command="{Binding StartAllCommand}"/>
                 <!--<MenuItem Header="_Options" />-->
-                <MenuItem Header="_Help" />
             </Menu>
         </DockPanel>
 
@@ -38,7 +37,7 @@
                 <HeaderedContentControl
                   Content="{Binding Path=WebSites}"
                   ContentTemplate="{StaticResource WebSiteListTemplate}"
-                  Header="Web Sites"
+                  Header="站点"
                   Style="{StaticResource MainHCCStyle}"
                   />
             </Border>
@@ -50,7 +49,7 @@
                 <HeaderedContentControl 
                   Content="{Binding Path=WebSites}"
                   ContentTemplate="{StaticResource WebSiteDetailTemplate}"
-                  Header="Configuration"
+                  Header="配置"
                   Style="{StaticResource MainHCCStyle}"
                   />
             </Border>

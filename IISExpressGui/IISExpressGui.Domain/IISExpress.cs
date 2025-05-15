@@ -12,7 +12,7 @@ namespace IISExpressGui.Domain
 {
     public class IISExpress
     {
-        Process associatedProcess;
+        public Process associatedProcess;
 
         static IISExpress()
         {
@@ -99,9 +99,9 @@ namespace IISExpressGui.Domain
             return new ProcessStartInfo
             {
                 FileName = IISDefaultPath,
-                RedirectStandardError = true,
-                RedirectStandardInput = true,
-                RedirectStandardOutput = true,
+                RedirectStandardError = false,
+                RedirectStandardInput = false,
+                RedirectStandardOutput = false,
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 //WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden

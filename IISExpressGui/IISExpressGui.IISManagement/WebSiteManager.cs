@@ -74,7 +74,7 @@ namespace IISExpressGui.IISManagement
                         var match = regex.Match(bindingInfo);
                         if (match.Groups.Count != 3)
                         {
-                            throw new Exception("invalid binding" + bindingInfo);
+                            throw new Exception("无效的绑定信息：" + bindingInfo);
                         }
                         var format = "{0}://{1}";
                         url = string.Format(format, protocol, match.Groups["address"].Value);
@@ -130,7 +130,8 @@ namespace IISExpressGui.IISManagement
             var newBindingsNode = this.applicationHostConfig.CreateElement("bindings");
             var newBindingNode = this.applicationHostConfig.CreateElement("binding");
             newBindingNode.SetAttribute("protocol", "http");
-            newBindingNode.SetAttribute("bindingInformation", string.Format(":{0}:localhost", webSite.Port));
+            var ip = webSite.Url.Replace("http://", "");
+            newBindingNode.SetAttribute("bindingInformation", string.Format(":{0}:{1}", webSite.Port, ip));
             newBindingsNode.AppendChild(newBindingNode);
             newSiteNode.AppendChild(newBindingsNode);
 
@@ -208,6 +209,7 @@ namespace IISExpressGui.IISManagement
         private void Start(WebSite webSite)
         {
             var iisExpressInstance = IISExpress.Start(webSite);
+            webSite.ProcessId = iisExpressInstance.associatedProcess.Id;
             this.runningProcesses[webSite.Id] = iisExpressInstance;
         }
 

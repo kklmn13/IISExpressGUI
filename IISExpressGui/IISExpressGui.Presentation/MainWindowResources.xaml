@@ -72,12 +72,12 @@
     <DataTemplate x:Key="ContextMenuItemHeaderTemplate">
         <TextBlock
                 x:Name="menuItemTextBlock"  
-                Text="Stop" />
+                Text="停止" />
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Path=IsRunning}" Value="False">
                 <Setter TargetName="menuItemTextBlock" 
                         Property="Text" 
-                        Value="Start" />
+                        Value="启动" />
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
@@ -101,7 +101,7 @@
                         <TextBlock
                             x:Name="statusTextBlock" 
                             Margin="0,6,3,6" 
-                            Text="(running)" />
+                            Text="{Binding Path=ProcessId, StringFormat='({0})'}" />
                         <TextBlock
                             x:Name="unsavedTextBlock" 
                             Visibility="Hidden"
@@ -114,7 +114,7 @@
                                     HeaderTemplate="{StaticResource ContextMenuItemHeaderTemplate}"
                                     Command="{Binding Path=ToggleStatusCommand}"
                                 />
-                                <MenuItem Header="Delete"
+                                <MenuItem Header="删除"
                                           Command="{Binding Path=DeleteWebSiteCommand}"></MenuItem>
                             </ContextMenu>
                         </StackPanel.ContextMenu>
@@ -123,7 +123,7 @@
                         <DataTrigger Binding="{Binding Path=IsRunning}" Value="False">
                             <Setter TargetName="statusTextBlock" 
                                     Property="Text" 
-                                    Value="(stopped)" />
+                                    Value="(停止)" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=IsModified}" Value="True">
                             <Setter TargetName="unsavedTextBlock" 
@@ -178,7 +178,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" 
                    HorizontalAlignment="Right"
-                   Content="_Name:" 
+                   Content="_名称:" 
                    Target="nameTextBox"/>
             <TextBox x:Name="nameTextBox" Grid.Row="0" Grid.Column="1" 
                      Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" 
@@ -186,7 +186,7 @@
                      VerticalAlignment="Center"
                      Width="200"/>
             <Label x:Name="urlLabel" Grid.Row="2" Grid.Column="0" 
-                   Content="_Url:" 
+                   Content="_地址:" 
                    HorizontalAlignment="Right"
                    Target="portTextBox"/>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
@@ -225,7 +225,7 @@
             </Button>
 
             <Label Grid.Row="5" Grid.Column="0" 
-                   Content="_Path:" 
+                   Content="_位置:" 
                    HorizontalAlignment="Right"
                    Target="pathTextBox"/>
             <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
@@ -234,7 +234,7 @@
                      HorizontalAlignment="Left"
                      VerticalAlignment="Center"
                      Width="250"/>
-                <Button Content="_Browse" 
+                <Button Content="_浏览" 
                         Command="{Binding Path=BrowseCommand}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -247,7 +247,7 @@
             <Button 
                   Grid.Row="7" Grid.Column="2"
                   Command="{Binding Path=SaveCommand}"
-                  Content="_Save"
+                  Content="_保存"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Top"
                   Margin="4,2,10,2" 

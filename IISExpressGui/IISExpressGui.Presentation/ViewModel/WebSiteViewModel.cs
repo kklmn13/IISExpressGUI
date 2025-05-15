@@ -138,6 +138,15 @@ namespace IISExpressGui.Presentation.ViewModel
             }
         }
 
+        public string ProcessId
+        {
+            get { return this.webSite.ProcessId.ToString(); }
+            set
+            {
+                base.OnPropertyChanged("ProcessId");
+            }
+        }
+
         public long WebSiteId => webSite?.Id ?? 0;
         public Action<WebSiteViewModel> WhenDeleted { get; set; }
 
@@ -291,8 +300,8 @@ namespace IISExpressGui.Presentation.ViewModel
         {
             var webSite = new WebSite
             {
-                Name = "New WebSite",
-                Url = "http://localhost",
+                Name = "",
+                Url = "http://*",
                 Port = "8080",
                 IsRunning = false
             };
@@ -397,6 +406,7 @@ namespace IISExpressGui.Presentation.ViewModel
             else
             {
                 this.webSiteManager.ToggleStatus(webSite);
+                ProcessId = webSite.ProcessId.ToString();
                 IsRunning = !IsRunning;
             }
         }

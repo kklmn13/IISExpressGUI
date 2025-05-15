@@ -24,6 +24,7 @@ namespace IISExpressGui.Presentation.ViewModel
         readonly IWebSiteManager webSiteManager;
         RelayCommand createWebSiteCommand;
         RelayCommand clearInvalidedWebSiteCommand;
+        RelayCommand startAllCommand;
 
         #endregion 
 
@@ -97,6 +98,18 @@ namespace IISExpressGui.Presentation.ViewModel
             }
         }
 
+        public ICommand StartAllCommand
+        {
+            get
+            {
+                if (this.startAllCommand == null)
+                {
+                    this.startAllCommand = new RelayCommand(param => StartAllWebSites());
+                }
+                return this.startAllCommand;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -147,6 +160,15 @@ namespace IISExpressGui.Presentation.ViewModel
                     webSiteManager.Remove(viewModel.WebSiteId);
                     WebSites.Remove(viewModel);
                 }
+            }
+        }
+
+        void StartAllWebSites()
+        {
+            if (this.webSites.Count == 0) MessageBox.Show("请先添加网站");
+            foreach (var website in webSites)
+            {
+                website.ToggleStatus();
             }
         }
 
